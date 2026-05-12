@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBT ANBK - SDIT TIHAMAH</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#f1f5f9;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+/* LOGIN */
+#loginPage{
+  width:100%;
+  padding:20px;
+  box-sizing:border-box;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.login-box{
+  background:#0d7015;
+  padding:25px 20px;
+  border-radius:20px;
+  text-align:center;
+  width:100%;
+  max-width:350px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+}
+
+.login-logo img{
+  width:70px;
+  border-radius:50%;
+  margin-bottom:10px;
+}
+
+.login-box h2{
+  color:white;
+  font-size:22px;
+  margin-bottom:15px;
+}
+
+.login-box input{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+  font-size:16px;
+  box-sizing:border-box;
+}
+
+.login-box button{
+  width:100%;
+  margin-top:15px;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  background:#facc15;
+  color:#14532d;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+
+@media(max-width:480px){
+
+  body{
+    margin:0;
+    background:#0d7015;
+    font-family:'Segoe UI',sans-serif;
+  }
+
+  #loginPage{
+    padding:0;
+    min-height:100vh;
+    align-items:stretch;
+  }
+
+  .login-box{
+    width:100%;
+    max-width:100%;
+    min-height:100vh;
+    border-radius:0;
+    padding:40px 24px 30px;
+    box-shadow:none;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+  }
+
+  /* LOGO BESAR SEPERTI ANBK */
+  .login-logo{
+    margin-top:10px;
+    margin-bottom:20px;
+  }
+
+  .login-logo img{
+    width:120px;
+    height:auto;
+  }
+
+  /* JUDUL */
+  .login-box h2{
+    font-size:26px;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:30px;
+  }
+
+  /* INPUT */
+  .login-box input{
+    padding:16px;
+    font-size:17px;
+    border-radius:12px;
+    margin-top:14px;
+  }
+
+  /* BUTTON */
+  .login-box button{
+    margin-top:24px;
+    padding:16px;
+    font-size:18px;
+    font-weight:800;
+    border-radius:14px;
+  }
+
+}
+
+
+/* APP */
+#app{
+  display:none;
+  width:100%;
+  height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:250px;
+  background:white;
+  position:fixed;
+  left:0;
+  top:0;
+  height:100%;
+  padding:15px;
+  overflow-y:auto;
+  z-index:1000;
+
+  transform:translateX(-100%);
+  transition:0.3s;
+}
+
+.sidebar.active{
+  transform:translateX(0);
+}
+
+.logo-box{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.logo-box img{
+  width:90px;
+}
+
+/* TOGGLE */
+.toggle-btn{
+  position:fixed;
+  left:10px;
+  top:80px;
+  background:#203bb6;
+  color:white;
+  padding:10px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  z-index:1100;
+}
+
+/* NOMOR */
+.nomor{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+}
+
+.nomor div{
+  background:#334155;
+  color:white;
+  padding:10px;
+  border-radius:5px;
+  text-align:center;
+  cursor:pointer;
+}
+
+/* MAIN */
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  width:100%;
+}
+
+.header{
+  background:#203bb6;
+  color:white;
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+#timer{
+  font-size:18px;
+  font-weight:bold;
+}
+
+.soal-box{
+  flex:1;
+  overflow-y:auto;
+  padding:20px;
+}
+
+.card{
+  background:white;
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+  border-radius:15px;
+  border:3px solid #0d7015;
+  color:black;
+  box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card img{
+  max-width:100%;
+  max-height:300px;
+  display:block;
+  margin:15px auto;
+  border-radius:10px;
+}
+
+/* PILIHAN */
+.pilihan label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border:2px solid #d1d5db;
+  padding:12px;
+  border-radius:10px;
+  margin-top:10px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.pilihan label:hover{
+  background:#fef08a;
+}
+
+.pilihan label:has(input:checked){
+  background:#bbf7d0;
+  border-color:#16a34a;
+}
+
+/* FOOTER */
+.footer{
+  padding:15px;
+  text-align:right;
+}
+
+.footer button{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+  .card{
+    padding:15px;
+  }
+
+  .pilihan label{
+    font-size:14px;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+
+  <div class="login-box">
+
+    <div class="login-logo">
+      <img src="LOGO SDIT 2023.png">
+    </div>
+
+    <h2>LOGIN CBT</h2>
+
+    <input type="text" id="username" placeholder="Username">
+
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Masuk</button>
+
+  </div>
+
+</div>
+
+<!-- APP -->
+<div id="app">
+
+  <div class="toggle-btn" onclick="toggleSidebar()">☰</div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="logo-box">
+      <img src="LOGO SDIT 2023.png">
+    </div>
+
+    <h3 style="color:black;">NOMOR</h3>
+
+    <div class="nomor" id="nomorSoal"></div>
+
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="header">
+
+      <div>
+        Nama:
+        <span id="namaUser">-</span>
+      </div>
+
+      <div id="timer">90:00</div>
+
+      <div>CBT SDIT TIHAMAH</div>
+
+    </div>
+
+    <div class="soal-box">
+
+      <div class="card" id="soal"></div>
+
+    </div>
+
+    <div class="footer">
+
+      <button onclick="kirim()">Selesai</button>
+
+    </div>
+
+  </div>
+
+</div>
+<script src="config.js"></script>
+<script>
+
+
+
+let userLogin = null;
+let isAdmin = false;
+
+let soal = [];
+let jawaban = [];
+
+let index = 0;
+
+/* =========================
+   AMBIL SOAL
+========================= */
+
+fetch(WEB_APP_URL + "?action=soal")
+.then(res=>res.json())
+.then(data=>{
+
+  soal = data;
+
+  jawaban = new Array(soal.length).fill("");
+
+});
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+  let u =
+  document.getElementById("username").value;
+
+  let p =
+  document.getElementById("password").value;
+
+  
+
+  /* LOGIN SISWA */
+
+  fetch(WEB_APP_URL,{
+
+    method:"POST",
+
+    body: JSON.stringify({
+
+      action:"login",
+
+      username:u,
+
+      password:p
+
+    })
+
+  })
+
+  .then(res=>res.json())
+
+.then(res=>{
+
+  if(res.status=="sukses"){
+
+    /* =========================
+       LOGIN ADMIN
+    ========================= */
+
+    if(res.role=="admin"){
+
+      isAdmin = true;
+
+      document.getElementById("loginPage").style.display="none";
+
+      document.getElementById("app").style.display="flex";
+
+      document.getElementById("namaUser").innerText =
+      res.nama;
+
+      document.getElementById("timer").style.display="none";
+
+      document.querySelector(".footer").style.display="none";
+
+      document.querySelector(".header").style.background="#7f1d1d";
+
+      document.querySelector(".toggle-btn").style.background="#dc2626";
+
+      loadNomor();
+
+      tampilAdmin(0);
+
+      return;
+
+    }
+
+    /* =========================
+       LOGIN SISWA
+    ========================= */
+
+    userLogin = {
+
+      username:u,
+      nama:res.nama
+
+    };
+
+    document.getElementById("loginPage").style.display="none";
+
+    document.getElementById("app").style.display="flex";
+
+    document.getElementById("namaUser").innerText =
+    res.nama;
+
+    loadNomor();
+
+    tampilSoal(0);
+
+    mulaiTimer();
+
+  }
+
+  else{
+
+    alert("Login gagal!");
+
+  }
+
+});
+}
+
+/* =========================
+   NOMOR
+========================= */
+
+function loadNomor(){
+
+  const nomorBox =
+  document.getElementById("nomorSoal");
+
+  nomorBox.innerHTML = "";
+
+  soal.forEach((s,i)=>{
+
+    let div =
+    document.createElement("div");
+
+    div.innerText = i+1;
+
+    div.onclick = ()=>{
+
+      if(isAdmin){
+
+        tampilAdmin(i);
+
+      }else{
+
+        tampilSoal(i);
+
+      }
+
+    };
+
+    nomorBox.appendChild(div);
+
+  });
+
+}
+
+/* =========================
+   TAMPIL SOAL
+========================= */
+
+function tampilSoal(i){
+
+  index = i;
+
+  let s = soal[i];
+
+  let html = `
+  <h3>Soal ${i+1}</h3>
+
+  <div>${s.tanya}</div>
+
+  <div class="pilihan">
+  `;
+
+  s.opsi.forEach((o,idx)=>{
+
+    let huruf =
+    String.fromCharCode(65+idx);
+
+    html += `
+
+    <label>
+
+    <input
+    type="radio"
+    name="jawab"
+
+    ${jawaban[i]==huruf?"checked":""}
+
+    onclick="pilih('${huruf}')">
+
+    ${huruf}. <span>${o}</span>
+
+    </label>
+
+    `;
+
+  });
+
+  html += "</div>";
+
+  document.getElementById("soal").innerHTML = html;
+
+  updateNomor();
+
+}
+
+/* =========================
+   TAMPIL ADMIN
+========================= */
+
+function tampilAdmin(i){
+
+  index = i;
+
+  let s = soal[i];
+
+  let html = `
+
+  <h2 style="color:#1d4ed8;">
+  EDITOR SOAL ADMIN
+  </h2>
+
+  <p><b>Soal ${i+1}</b></p>
+
+
+
+
+<div style="
+margin-bottom:10px;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+">
+
+<button onclick="buatPangkat()">X²</button>
+
+<button onclick="buatDerajat()">°</button>
+
+<button onclick="buatAkar()">√</button>
+
+<button onclick="buatPecahan()">½</button>
+
+<button onclick="buatCampuran()">1½</button>
+
+<button onclick="buatKali()">×</button>
+
+<button onclick="buatBagi()">÷</button>
+
+<button onclick="buatKurang()">−</button>
+
+<button onclick="buatSamaDengan()">=</button>
+
+<button onclick="buatTidakSama()">≠</button>
+
+<button onclick="buatLebihBesar()">≥</button>
+
+<button onclick="buatLebihKecil()">≤</button>
+
+<button onclick="buatPhi()">π</button>
+
+<button onclick="buatPersen()">%</button>
+
+<button onclick="buatSudut()">∠</button>
+
+<button onclick="buatSegitiga()">△</button>
+
+<button onclick="buatKotak()">□</button>
+
+</div>
+
+
+
+
+ <div
+id="editSoal"
+
+contenteditable="true"
+
+style="
+width:100%;
+min-height:120px;
+padding:10px;
+box-sizing:border-box;
+border:1px solid #999;
+background:white;
+overflow:auto;
+"
+
+>${s.tanya}</div>
+
+  <br><br>
+
+
+
+<br>
+
+<h3>Upload Gambar Soal</h3>
+
+<input
+type="file"
+id="uploadGambar"
+accept="image/*">
+
+<br><br>
+
+<button onclick="uploadGambarSoal()"
+style="
+background:#2563eb;
+color:white;
+border:none;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+">
+UPLOAD GAMBAR
+</button>
+
+<br><br>
+
+<div id="previewGambar"></div>
+
+
+
+  <h3>Pilihan Jawaban</h3>
+
+  `;
+
+  s.opsi.forEach((o,idx)=>{
+
+    let huruf =
+    String.fromCharCode(65+idx);
+
+    html += `
+
+    <div style="margin-bottom:10px;">
+
+      <b>${huruf}</b>
+
+      <div
+
+contenteditable="true"
+
+id="opsi${idx}"
+
+style="
+width:90%;
+min-height:40px;
+padding:10px;
+border:1px solid #999;
+background:white;
+display:inline-block;
+vertical-align:middle;
+"
+
+>${o}</div>
+
+    </div>
+
+    `;
+
+  });
+
+  html += `
+
+  <br>
+
+  <h3>Kunci Jawaban</h3>
+
+  <<select id="kunciEdit">
+  <option value="A">A</option>
+  <option value="B">B</option>
+  <option value="C">C</option>
+  <option value="D">D</option>
+</select>
+
+  <br><br>
+
+
+
+<button
+onclick="tambahSoalBaru()"
+style="
+background:#f59e0b;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:10px;
+cursor:pointer;
+margin-right:10px;
+">
++ TAMBAH SOAL BARU
+</button>
+
+
+
+
+  <button
+  onclick="simpanSoal()"
+
+  style="
+  background:#16a34a;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+  ">
+
+  SIMPAN PERUBAHAN
+
+  </button>
+
+  `;
+
+  document.getElementById("soal").innerHTML = html;
+
+}
+
+
+
+/* =========================
+   SIMPAN SOAL
+========================= */
+
+function simpanSoal(){
+
+  let data = {
+    action:"editSoal",
+    index:index,
+    tanya: document.getElementById("editSoal").innerHTML,
+    A: document.getElementById("opsi0").innerHTML,
+    B: document.getElementById("opsi1").innerHTML,
+    C: document.getElementById("opsi2").innerHTML,
+    D: document.getElementById("opsi3").innerHTML,
+    kunci: document.getElementById("kunciEdit").value
+  };
+
+  fetch(WEB_APP_URL,{
+    method:"POST",
+    body: JSON.stringify(data)
+  })
+  .then(res=>res.text())
+  .then(()=>{
+    alert("Soal & kunci jawaban berhasil disimpan!");
+
+    soal[index].tanya = data.tanya;
+    soal[index].opsi = [data.A, data.B, data.C, data.D];
+    soal[index].kunci = data.kunci;
+  });
+}
+
+
+function tambahSoal(){
+
+  var sheet = SpreadsheetApp
+  .getActiveSpreadsheet()
+  .getSheetByName("SOAL");
+
+  // CEK JUMLAH BARIS
+  var lastRow = sheet.getLastRow();
+
+  sheet.getRange(lastRow + 1, 1, 1, 6).setValues([[
+    "Soal baru...",
+    "Pilihan A",
+    "Pilihan B",
+    "Pilihan C",
+    "Pilihan D",
+    "A"
+  ]]);
+
+  return ContentService
+  .createTextOutput("OK")
+  .setMimeType(ContentService.MimeType.TEXT);
+}
+
+
+/* =========================
+   PILIH JAWABAN
+========================= */
+
+function pilih(h){
+
+  jawaban[index] = h;
+
+  updateNomor();
+
+}
+
+/* =========================
+   UPDATE NOMOR
+========================= */
+
+function updateNomor(){
+
+  let semua =
+  document.querySelectorAll(".nomor div");
+
+  semua.forEach((el,i)=>{
+
+    if(jawaban[i]!=""){
+
+      el.style.background="#22c55e";
+
+    }else{
+
+      el.style.background="#334155";
+
+    }
+
+    if(i==index){
+
+      el.style.border="2px solid yellow";
+
+    }else{
+
+      el.style.border="none";
+
+    }
+
+  });
+
+}
+
+/* =========================
+   KIRIM
+========================= */
+
+function kirim(){
+
+  let kosong =
+  jawaban.filter(j => j=="").length;
+
+  if(kosong > 0){
+
+    let lanjut =
+    confirm(
+      "Masih ada "
+      + kosong +
+      " soal belum dijawab. Tetap kirim?"
+    );
+
+    if(!lanjut) return;
+
+  }
+
+  fetch(WEB_APP_URL,{
+
+    method:"POST",
+
+    body: JSON.stringify({
+
+      action:"kirim",
+
+      nama:userLogin.nama,
+
+      username:userLogin.username,
+
+      jawaban:jawaban
+
+    })
+
+  })
+
+  .then(res=>res.text())
+
+  .then(()=>{
+
+    alert("Ujian selesai!");
+
+    location.reload();
+
+  });
+
+}
+
+/* =========================
+   TIMER
+========================= */
+
+let waktu = 90 * 60;
+
+let intervalTimer;
+
+function formatWaktu(detik){
+
+  let m =
+  Math.floor(detik / 60);
+
+  let s =
+  detik % 60;
+
+  return `${m}:${s < 10 ? "0"+s : s}`;
+
+}
+
+function mulaiTimer(){
+
+  intervalTimer = setInterval(()=>{
+
+    waktu--;
+
+    document.getElementById("timer")
+    .innerText =
+    formatWaktu(waktu);
+
+    if(waktu <= 600){
+
+      document.getElementById("timer")
+      .style.color = "red";
+
+    }
+
+    if(waktu <= 0){
+
+      clearInterval(intervalTimer);
+
+      alert("Waktu habis!");
+
+      kirim();
+
+    }
+
+  },1000);
+
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+const sidebar =
+document.querySelector(".sidebar");
+
+function toggleSidebar(){
+
+  sidebar.classList.toggle("active");
+
+}
+
+/* =========================
+   SWIPE HP
+========================= */
+
+let startX = 0;
+let endX = 0;
+
+document.addEventListener("touchstart",e=>{
+
+  startX = e.touches[0].clientX;
+
+});
+
+document.addEventListener("touchend",e=>{
+
+  endX = e.changedTouches[0].clientX;
+
+  handleSwipe();
+
+});
+
+function handleSwipe(){
+
+  let diff = endX - startX;
+
+  if(diff > 50){
+
+    sidebar.classList.add("active");
+
+  }
+
+  if(diff < -50){
+
+    sidebar.classList.remove("active");
+
+  }
+
+}
+
+
+
+function buatPangkat(){
+
+  let angka =
+  prompt("Masukkan angka pangkat:");
+
+  document.execCommand(
+    "insertHTML",
+    false,
+    "<sup>"+angka+"</sup>"
+  );
+
+}
+
+function sisip(html){
+
+  document.execCommand(
+    "insertHTML",
+    false,
+
+    html + "<span>&nbsp;</span>"
+  );
+
+}
+
+/* PANGKAT */
+function buatPangkat(){
+
+  let angka =
+  prompt("Masukkan pangkat:");
+
+  sisip("<sup>"+angka+"</sup>");
+}
+
+/* DERAJAT */
+function buatDerajat(){
+  sisip("°");
+}
+
+/* AKAR */
+function buatAkar(){
+
+  let isi =
+  prompt("Isi akar:");
+
+  sisip("√"+isi);
+}
+
+/* PECAHAN */
+function buatPecahan(){
+
+  let atas =
+  prompt("Pembilang:");
+
+  let bawah =
+  prompt("Penyebut:");
+
+  sisip(`
+  <span style="
+  display:inline-block;
+  text-align:center;
+  vertical-align:middle;
+  ">
+    <sup>${atas}</sup>
+    <span style="
+    display:block;
+    border-top:2px solid black;
+    margin:2px 0;
+    "></span>
+    <sub>${bawah}</sub>
+  </span>
+  `);
+}
+
+/* PECAHAN CAMPURAN */
+function buatCampuran(){
+
+  let depan =
+  prompt("Bilangan depan:");
+
+  let atas =
+  prompt("Pembilang:");
+
+  let bawah =
+  prompt("Penyebut:");
+
+  sisip(`
+  ${depan}
+  <span style="
+  display:inline-block;
+  text-align:center;
+  vertical-align:middle;
+  ">
+    <sup>${atas}</sup>
+    <span style="
+    display:block;
+    border-top:2px solid black;
+    margin:2px 0;
+    "></span>
+    <sub>${bawah}</sub>
+  </span>
+  `);
+}
+
+/* KALI */
+function buatKali(){
+  sisip(" × ");
+}
+
+/* BAGI */
+function buatBagi(){
+  sisip(" ÷ ");
+}
+
+/* KURANG */
+function buatKurang(){
+  sisip(" − ");
+}
+
+/* SAMA DENGAN */
+function buatSamaDengan(){
+  sisip(" = ");
+}
+
+/* TIDAK SAMA */
+function buatTidakSama(){
+  sisip(" ≠ ");
+}
+
+/* LEBIH BESAR */
+function buatLebihBesar(){
+  sisip(" ≥ ");
+}
+
+/* LEBIH KECIL */
+function buatLebihKecil(){
+  sisip(" ≤ ");
+}
+
+/* PHI */
+function buatPhi(){
+  sisip(" π ");
+}
+
+/* PERSEN */
+function buatPersen(){
+  sisip("%");
+}
+
+/* SUDUT */
+function buatSudut(){
+  sisip("∠");
+}
+
+/* SEGITIGA */
+function buatSegitiga(){
+  sisip("△");
+}
+
+/* KOTAK */
+function buatKotak(){
+  sisip("□");
+}
+
+
+
+
+
+/* =========================
+   UPLOAD GAMBAR
+========================= */
+
+function uploadGambarSoal(){
+
+  let file = document.getElementById("uploadGambar").files[0];
+
+  if(!file){
+    alert("Pilih gambar dulu!");
+    return;
+  }
+
+  let reader = new FileReader();
+
+  reader.onload = function(e){
+
+    let base64 = e.target.result.split(",")[1];
+
+    fetch(WEB_APP_URL, {
+      method:"POST",
+      body: JSON.stringify({
+        action:"uploadGambar",
+        base64: base64,
+        type: file.type,
+        namaFile: file.name
+      })
+    })
+    .then(res=>res.json())
+    .then(res=>{
+
+      let url = res.url;
+
+      let imgHTML = `
+  <div style="margin:10px 0;">
+    <img src="${url}" 
+         style="max-width:300px;border-radius:10px;"
+         onerror="this.style.display='none'">
+  </div>
+`;
+
+      document.getElementById("editSoal").innerHTML += imgHTML;
+
+      document.getElementById("previewGambar").innerHTML = imgHTML;
+
+    });
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+
+
+function tambahSoalBaru(){
+
+  fetch(WEB_APP_URL,{
+
+    method:"POST",
+
+    body: JSON.stringify({
+      action:"tambahSoal"
+    })
+
+  })
+  .then(res=>res.json())
+  .then(res=>{
+
+    if(res.status == "sukses"){
+
+      alert("Soal baru berhasil ditambahkan!");
+
+      // reload soal biar langsung muncul
+      fetch(WEB_APP_URL + "?action=soal")
+.then(res=>res.json())
+.then(data=>{
+  soal = data;
+  loadNomor();
+  tampilAdmin(soal.length - 1);
+});
+
+    }
+
+  });
+
+}
+
+
+
+</script>
+
+</body>
+</html>
