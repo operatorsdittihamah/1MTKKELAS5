@@ -400,6 +400,8 @@ fetch(WEB_APP_URL + "?action=soal")
 
   soal = data;
 
+  console.log("JUMLAH SOAL:", soal.length); // ✅ DI SINI TEMPATNYA
+
   jawaban = new Array(soal.length).fill("");
 
 });
@@ -759,7 +761,7 @@ vertical-align:middle;
 
   <h3>Kunci Jawaban</h3>
 
-  <<select id="kunciEdit">
+  <select id="kunciEdit">
   <option value="A">A</option>
   <option value="B">B</option>
   <option value="C">C</option>
@@ -872,11 +874,8 @@ function tambahSoal(){
 ========================= */
 
 function pilih(h){
-
-  jawaban[index] = h;
-
+  jawaban[index] = h.trim().toUpperCase();
   updateNomor();
-
 }
 
 /* =========================
@@ -919,6 +918,9 @@ function updateNomor(){
 ========================= */
 
 function kirim(){
+
+  console.log("JUMLAH JAWABAN:", jawaban.length); // ✅ DI SINI
+  console.log("ISI JAWABAN:", jawaban); // ✅ BONUS CEK
 
   let kosong =
   jawaban.filter(j => j=="").length;
